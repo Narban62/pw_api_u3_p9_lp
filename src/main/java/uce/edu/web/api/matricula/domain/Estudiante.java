@@ -14,7 +14,10 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "Estudiante")
-@SequenceGenerator(name = "estudiante_seq",sequenceName = "estudiante_secuencia", allocationSize = 1)
+@SequenceGenerator(
+    name = "estudiante_seq",
+    sequenceName = "estudiante_secuencia", 
+    allocationSize = 1)
 public class Estudiante extends PanacheEntityBase{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "estudiante_seq")
@@ -24,3 +27,4 @@ public class Estudiante extends PanacheEntityBase{
     public LocalDateTime fechaNacimiento;
 
 }
+
