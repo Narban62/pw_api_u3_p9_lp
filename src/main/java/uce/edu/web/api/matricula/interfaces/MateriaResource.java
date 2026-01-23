@@ -4,6 +4,8 @@ import java.util.List;
 
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 import uce.edu.web.api.matricula.aplication.MateriaService;
 import uce.edu.web.api.matricula.domain.Materia;
 
@@ -14,37 +16,43 @@ public class MateriaResource {
     private MateriaService materiaService;
 
     @GET
-    @Path("/todas")
+    @Path("")
+    @Produces(MediaType.APPLICATION_JSON)
     public List<Materia> listarTodas() {
         return materiaService.listarTodas();
     }
 
     @GET
-    @Path("/{id}")
+    @Path("consultarPorId/{id}")
+    @Produces(MediaType.APPLICATION_XML)
     public Materia consultarPorId(@PathParam("id") Integer id) {
         return materiaService.consultarPorId(id);
     }
 
     @POST
-    @Path("/crear")
-    public void crear(Materia materia) {
-        materiaService.crear(materia);
+    @Path("")
+    public Response guardarMateria(Materia materia) {
+        this.materiaService.crear(materia);
+        return 
+        Response.status(Response.Status.CREATED).entity(materia).build();
     }
 
     @PUT
-    @Path("/actualizar/{id}")
-    public void actualizar(@PathParam("id") Integer id, Materia materia) {
-        materiaService.actualizar(id, materia);
+    @Path("/{id}")
+    public Response actualizar(@PathParam("id") Integer id, Materia materia) {
+        this.materiaService.actualizar(id, materia);
+        return Response.status(210).entity(null).build();
     }
 
     @PATCH
-    @Path("/actualizarParcial/{id}")
-    public void actualizarParcial(@PathParam("id") Integer id, Materia materia) {
-        materiaService.actualizarParcial(id, materia);
+    @Path("/{id}")
+    public Response actualizarParcial(@PathParam("id") Integer id, Materia materia) {
+        this.materiaService.actualizarParcial(id, materia);
+        return Response.status(211).entity(null).build();
     }
 
     @DELETE
-    @Path("/eliminar/{id}")
+    @Path("/{id}")
     public void eliminar(@PathParam("id") Integer id) {
         materiaService.eliminar(id);
     }
